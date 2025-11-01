@@ -9,7 +9,7 @@ const CURRENCY_EXCHANGE_INITIAL_VALUES: CurrencyExchangeFormData = {
 
 function App() {
   return (
-    <StyledContainer>
+    <StyledContainer className="h-full">
       <CurrencyExchangeForm initialValues={CURRENCY_EXCHANGE_INITIAL_VALUES} onSubmit={console.log} />
     </StyledContainer>
   );
