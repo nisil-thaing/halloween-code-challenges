@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { Formik, type FormikConfig } from 'formik';
 import * as Yup from 'yup';
 
-import { GENERAL_PATTERN } from '@/constants';
+import { CurrencyAmountFieldSchema } from '@/components/CurrencyAmountField/CurrencyAmountField';
 import type { CurrencyExchangeFormData } from './CurrencyExchange.types';
 import { FormRenderer } from './FormRenderer';
 
@@ -11,16 +11,15 @@ import { StyledContainer } from './CurrencyExchangeForm.styled';
 type CurrencyExchangeFormProps = FormikConfig<CurrencyExchangeFormData>;
 
 const validationSchema = Yup.object().shape({
-  from: Yup.object().shape({
-    value: Yup.string()
-      .required('Please fill your currency value')
-      .matches(GENERAL_PATTERN.CURRENCY_VALUE, 'Please fill valid currency value'),
-  }),
+  from: CurrencyAmountFieldSchema,
 });
 
 export const CurrencyExchangeForm: FC<CurrencyExchangeFormProps> = ({ initialValues, onSubmit }) => {
   return (
-    <StyledContainer>
+    <StyledContainer className="w-full max-w-xl">
+      <h2 className="text-center scroll-m-20 border-b mb-10 pb-4 text-3xl font-semibold tracking-tight first:mt-0">
+        Currency Exchange
+      </h2>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         {(formProps) => <FormRenderer {...formProps} />}
       </Formik>
