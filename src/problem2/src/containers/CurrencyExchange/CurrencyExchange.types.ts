@@ -1,7 +1,4 @@
-export type CurrencyAmountData = {
-  value: number | string;
-  unit: string;
-};
+import type { CurrencyAmountData } from '@/types';
 
 export type CurrencyExchangeFormData = {
   from: CurrencyAmountData;

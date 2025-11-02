@@ -2,11 +2,11 @@ import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { ErrorMessage, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 
+import type { CurrencyAmountData } from '@/types';
 import { GENERAL_PATTERN } from '@/constants';
 import { Field, FieldError, FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { CurrencyAmountData } from '../../containers/CurrencyExchange/CurrencyExchange.types';
 
 export type CurrencyUnitOption = {
   label: string;
@@ -79,7 +79,7 @@ export function CurrencyAmountField<T = unknown>({
 
   return (
     <FieldGroup>
-      <FieldSet>
+      <FieldSet className="gap-0">
         {fieldLabel ? <FieldLegend className="text-[#6b7280]">{fieldLabel}</FieldLegend> : null}
         <FieldGroup className="flex flex-row border rounded-lg py-1">
           <Field>
@@ -89,6 +89,7 @@ export function CurrencyAmountField<T = unknown>({
               name={`${name}.value`}
               ref={inputRef}
               defaultValue={initialFieldValues.value}
+              value={fieldValues.value}
               className="pl-4 border-none shadow-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0"
               placeholder="0"
               onChange={handleChange}
@@ -96,14 +97,17 @@ export function CurrencyAmountField<T = unknown>({
               disabled={isDisabledTextInput}
             />
           </Field>
-          <Field className="max-w-[100px] border-l">
+          <Field className="max-w-[120px] border-l">
             <Select
               name={`${name}.unit`}
               defaultValue={initialFieldValues.unit}
               onValueChange={(unitValue: string) => setFieldValue(`${name}.unit`, unitValue)}
               disabled={isDisabledUnitSelect}
             >
-              <SelectTrigger id={`${name}.unit`} className="border-none shadow-none focus-visible:ring-0">
+              <SelectTrigger
+                id={`${name}.unit`}
+                className="flex flex-row justify-center border-none shadow-none focus-visible:ring-0"
+              >
                 <SelectValue placeholder="USD" />
               </SelectTrigger>
               <SelectContent>
@@ -120,7 +124,7 @@ export function CurrencyAmountField<T = unknown>({
             </Select>
           </Field>
         </FieldGroup>
-        <ErrorMessage component={FieldError} name={`${name}.value`} />
+        <ErrorMessage component={FieldError} name={`${name}.value`} className="mt-2 pl-1" />
       </FieldSet>
     </FieldGroup>
   );

@@ -23,6 +23,11 @@ export default defineConfig([
       quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
       semi: ['error', 'always'],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
     },
   },
 ]);
