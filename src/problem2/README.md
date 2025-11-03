@@ -16,3 +16,6 @@ This repo is using Node ```v24.11.0```, which is a stable version at the moment
 1. Run ```nvm use```
 2. Run ```npm install```
 3. Run ```npm run dev```
+
+## Snapshot
+<img width="1248" height="1052" alt="image" src="https://github.com/user-attachments/assets/3d64ae36-2c01-4d49-8627-44aeabdf33d9" />
