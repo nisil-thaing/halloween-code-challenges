@@ -51,7 +51,7 @@ export const convertCurrencyUnit = async (payload: ConvertCurrencyUnitPayload) =
   // Just want to add a little bit delay to test loading showing
   return new Promise((resolve, _reject) => {
     setTimeout(() => {
-      resolve(result);
-    }, 4000);
+      resolve(result.toFixed(3));
+    }, 2000);
   });
 };

@@ -8,6 +8,8 @@ import { Field, FieldError, FieldGroup, FieldLegend, FieldSet } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+import fallbackCurrencyIcon from '@/assets/react.svg';
+
 export type CurrencyUnitOption = {
   label: string;
   value: string;
@@ -66,6 +68,10 @@ export function CurrencyAmountField<T = unknown>({
 
   const initialFieldValues = (initialValues as { [name: string]: CurrencyAmountData })[name];
   const fieldValues = (values as { [name: string]: CurrencyAmountData })[name];
+  const selectedUnit = fieldValues.unit;
+  const selectedCurrencyIconUrl = selectedUnit
+    ? new URL(`/node_modules/@switcheo/token-icons/tokens/${selectedUnit}.svg`, import.meta.url).href
+    : fallbackCurrencyIcon;
 
   useLayoutEffect(() => {
     const el = inputRef.current;
@@ -88,7 +94,6 @@ export function CurrencyAmountField<T = unknown>({
               id={`${name}.value`}
               name={`${name}.value`}
               ref={inputRef}
-              defaultValue={initialFieldValues.value}
               value={fieldValues.value}
               className="pl-4 border-none shadow-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0"
               placeholder="0"
@@ -97,7 +102,7 @@ export function CurrencyAmountField<T = unknown>({
               disabled={isDisabledTextInput}
             />
           </Field>
-          <Field className="max-w-[120px] border-l">
+          <Field className="max-w-[160px] border-l">
             <Select
               name={`${name}.unit`}
               defaultValue={initialFieldValues.unit}
@@ -108,7 +113,19 @@ export function CurrencyAmountField<T = unknown>({
                 id={`${name}.unit`}
                 className="flex flex-row justify-center border-none shadow-none focus-visible:ring-0"
               >
-                <SelectValue placeholder="USD" />
+                <p className="flex flex-row">
+                  <SelectValue placeholder="USD" />
+                  <img
+                    src={selectedCurrencyIconUrl}
+                    alt={fieldValues.unit}
+                    width="20"
+                    height="20"
+                    className="ml-2"
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackCurrencyIcon;
+                    }}
+                  />
+                </p>
               </SelectTrigger>
               <SelectContent>
                 {unitOptions.map((unitOption) => (
